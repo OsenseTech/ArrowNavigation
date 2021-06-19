@@ -54,7 +54,8 @@ class ViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        configuration.detectionImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil)
+        
         // Run the view's session
         sceneView.session.run(configuration)
     }

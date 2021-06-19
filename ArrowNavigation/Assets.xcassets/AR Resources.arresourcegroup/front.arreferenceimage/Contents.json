@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "front.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "width" : 327.36000000000001
+  }
+}
