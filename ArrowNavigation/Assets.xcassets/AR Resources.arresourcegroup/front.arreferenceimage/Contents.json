@@ -10,6 +10,7 @@
     "version" : 1
   },
   "properties" : {
-    "width" : 327.36000000000001
+    "unit" : "centimeters",
+    "width" : 16.800000000000001
   }
 }
