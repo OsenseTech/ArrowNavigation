@@ -68,52 +68,91 @@ class ViewController: UIViewController {
     
     // MARK: - Helper
     
-    private func getPosition(from transform: simd_float4x4) -> SCNVector3 {
-        let position = transform.columns.3
+    private func getPosition(anchor: ARImageAnchor) -> SCNVector3 {
+        let position = anchor.transform.columns.3
         return SCNVector3(x: position.x, y: position.y, z: position.z)
     }
     
     func setTargetPosition(imageAnchorPosition: SCNVector3) {
-        let theta = calculateTheta(imageAnchorPosition: imageAnchorPosition)
+        let arVector = simd_float2(imageAnchorPosition.x, imageAnchorPosition.z)
+        let imageVector = simd_float2(-1, -1)
+        let theta = calculateTheta(aVector: imageVector, bVector: arVector)
+        let (adjustedTheta, _) = adjustTheta(angle: theta, arVector: arVector, imageVector: imageVector)
         
-        let targetOriginPosition = simd_float2(-2.0, 1.0)
-        let targetTranslatedVector = rotateVector(targetOriginPosition, angle: theta)
-        let targetPosition = SCNVector3(x: targetTranslatedVector.x, y: 0, z: -targetTranslatedVector.y)
+        let targetOriginPosition: SIMD2<Float> = SIMD2(-2, -1)
+        let targetTranslatedVector = rotateVector(targetOriginPosition, angle: adjustedTheta)
+        let targetPosition = SCNVector3(x: targetTranslatedVector.x, y: imageAnchorPosition.y, z: targetTranslatedVector.y)
+        
         targetNode.position = targetPosition
     }
     
-    func calculateTheta(imageAnchorPosition: SCNVector3) -> Double {
-        let imageVector = simd_float2(1, 1)
-        let arVector = simd_float2(imageAnchorPosition.x, imageAnchorPosition.z)
-        
-        let originVectorLength = simd_length(imageVector)
-        let arVectorLength = simd_length(arVector)
-        let adotb = imageVector.x * arVector.x + imageVector.y * arVector.y
-        let theta = Double(acos( adotb / (originVectorLength * arVectorLength)))
+    func calculateTheta(aVector: simd_float2, bVector: simd_float2) -> Float {
+        let aVectorLength = simd_length(aVector)
+        let bVectorLength = simd_length(bVector)
+        let adotb = aVector.x * bVector.x + aVector.y * bVector.y
+        let theta = acos(adotb / (aVectorLength * bVectorLength))
         
         return theta
     }
     
-    func rotateVector(_ vector: simd_float2, angle: Double) -> simd_float2 {
-        let angle = Measurement(value: angle, unit: UnitAngle.degrees)
-        let radians = Float(angle.converted(to: .radians).value)
+    func adjustTheta(angle: Float, arVector: simd_float2, imageVector: simd_float2) -> (Float, Bool) {
+        let rotatedImageVector = rotateVector(imageVector, angle: angle)
         
-        let rotationMatrix = makeRotationMatrix(angle: radians)
-        let rotatedVector = vector * rotationMatrix
+        let sameDirection: Bool
+        let accurate: Bool
+        if arVector == rotatedImageVector {
+            sameDirection = true
+            accurate = true
+        } else {
+            let theta = calculateTheta(aVector: rotatedImageVector, bVector: arVector)
+            
+            if theta == 0 {
+                sameDirection = true
+                accurate = true
+            } else if theta / angle == 2 {
+                sameDirection = false
+                accurate = true
+            } else {
+                sameDirection = false
+                accurate = false
+            }
+        }
+        
+        let adjustedTheta: Float
+        if sameDirection {
+            adjustedTheta = angle
+        } else {
+            adjustedTheta = -angle
+        }
+        
+        return (adjustedTheta, accurate)
+    }
+    
+    func rotateVector(_ vector: SIMD2<Float>, angle: Float) -> SIMD2<Float> {
+        let rotationMatrix = makeRotationMatrix(angle: angle)
+        let rotatedVector = rotationMatrix * vector
         
         return rotatedVector
     }
     
     /// - Parameter angle: in radians
     func makeRotationMatrix(angle: Float) -> simd_float2x2 {
-        let rows = [
+        let columns = (
             simd_float2(cos(angle), -sin(angle)),
-            simd_float2(sin(angle), cos(angle)),
-        ]
+            simd_float2(sin(angle), cos(angle))
+        )
         
-        return float2x2(rows: rows)
+        return float2x2(columns: columns)
     }
     
+    func makeBox(position: SCNVector3) -> SCNNode {
+        let node = SCNNode()
+        let sphere = SCNSphere(radius: 0.05)
+        node.geometry = sphere
+        node.position = position
+        
+        return node
+    }
 }
 
 extension ViewController: ARSCNViewDelegate {
@@ -124,17 +163,30 @@ extension ViewController: ARSessionDelegate {
     
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         if let imageAnchor = anchors.first as? ARImageAnchor {
-            let imageAnchorPosition = getPosition(from: imageAnchor.transform)
+            let imageAnchorPosition = getPosition(anchor: imageAnchor)
+            imageAnchorNode = makeBox(position: imageAnchorPosition)
+            sceneView.scene.rootNode.addChildNode(imageAnchorNode)
             
-//            let node = SCNNode()
-//            let box = SCNBox(width: 0.5, height: 0.5, length: 0.5, chamferRadius: 0)
-//            node.geometry = box
-//            node.position = imageAnchorPosition
-//            node.addChildNode(targetNode)
-            sceneView.scene.rootNode.addChildNode(targetNode)
+            sceneView.scene.rootNode.addChildNode(makeBox(position: SCNVector3(0, 0, 0)))
+            sceneView.scene.rootNode.addChildNode(makeBox(position: SCNVector3(0.5, 0, 0)))
+            sceneView.scene.rootNode.addChildNode(makeBox(position: SCNVector3(0, 1, 0)))
+            sceneView.scene.rootNode.addChildNode(makeBox(position: SCNVector3(0, 0, 1)))
+            
             setTargetPosition(imageAnchorPosition: imageAnchorPosition)
+            sceneView.scene.rootNode.addChildNode(targetNode)
             
             sceneView.pointOfView?.addChildNode(arrowNode)
+        }
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        for anchor in anchors {
+            if let imageAnchor = anchor as? ARImageAnchor {
+                let position = getPosition(anchor: imageAnchor)
+                imageAnchorNode.position = position
+                
+                setTargetPosition(imageAnchorPosition: position)
+            }
         }
     }
     
