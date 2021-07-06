@@ -13,7 +13,18 @@
 		6507D66526648AED000EBB8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6507D66326648AED000EBB8D /* Main.storyboard */; };
 		6507D66726648AEE000EBB8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6507D66626648AEE000EBB8D /* Assets.xcassets */; };
 		6507D66A26648AEE000EBB8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6507D66826648AEE000EBB8D /* LaunchScreen.storyboard */; };
+		655E30D126808344004AC30F /* ArrowNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E30D026808344004AC30F /* ArrowNavigationTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		655E30D326808344004AC30F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6507D65226648AED000EBB8D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6507D65926648AED000EBB8D;
+			remoteInfo = ArrowNavigation;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6507D65A26648AED000EBB8D /* ArrowNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArrowNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,10 +35,20 @@
 		6507D66626648AEE000EBB8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6507D66926648AEE000EBB8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6507D66B26648AEE000EBB8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		655E30CE26808344004AC30F /* ArrowNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArrowNavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		655E30D026808344004AC30F /* ArrowNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowNavigationTests.swift; sourceTree = "<group>"; };
+		655E30D226808344004AC30F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6507D65726648AED000EBB8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		655E30CB26808344004AC30F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				6507D65C26648AED000EBB8D /* ArrowNavigation */,
+				655E30CF26808344004AC30F /* ArrowNavigationTests */,
 				6507D65B26648AED000EBB8D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				6507D65A26648AED000EBB8D /* ArrowNavigation.app */,
+				655E30CE26808344004AC30F /* ArrowNavigationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +88,15 @@
 				6507D66B26648AEE000EBB8D /* Info.plist */,
 			);
 			path = ArrowNavigation;
+			sourceTree = "<group>";
+		};
+		655E30CF26808344004AC30F /* ArrowNavigationTests */ = {
+			isa = PBXGroup;
+			children = (
+				655E30D026808344004AC30F /* ArrowNavigationTests.swift */,
+				655E30D226808344004AC30F /* Info.plist */,
+			);
+			path = ArrowNavigationTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +119,24 @@
 			productReference = 6507D65A26648AED000EBB8D /* ArrowNavigation.app */;
 			productType = "com.apple.product-type.application";
 		};
+		655E30CD26808344004AC30F /* ArrowNavigationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 655E30D726808344004AC30F /* Build configuration list for PBXNativeTarget "ArrowNavigationTests" */;
+			buildPhases = (
+				655E30CA26808344004AC30F /* Sources */,
+				655E30CB26808344004AC30F /* Frameworks */,
+				655E30CC26808344004AC30F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				655E30D426808344004AC30F /* PBXTargetDependency */,
+			);
+			name = ArrowNavigationTests;
+			productName = ArrowNavigationTests;
+			productReference = 655E30CE26808344004AC30F /* ArrowNavigationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -98,6 +148,10 @@
 				TargetAttributes = {
 					6507D65926648AED000EBB8D = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					655E30CD26808344004AC30F = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 6507D65926648AED000EBB8D;
 					};
 				};
 			};
@@ -115,6 +169,7 @@
 			projectRoot = "";
 			targets = (
 				6507D65926648AED000EBB8D /* ArrowNavigation */,
+				655E30CD26808344004AC30F /* ArrowNavigationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -131,6 +186,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		655E30CC26808344004AC30F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -143,7 +205,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		655E30CA26808344004AC30F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				655E30D126808344004AC30F /* ArrowNavigationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		655E30D426808344004AC30F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6507D65926648AED000EBB8D /* ArrowNavigation */;
+			targetProxy = 655E30D326808344004AC30F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6507D66326648AED000EBB8D /* Main.storyboard */ = {
@@ -321,6 +399,48 @@
 			};
 			name = Release;
 		};
+		655E30D526808344004AC30F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SUV34UZRXX;
+				INFOPLIST_FILE = ArrowNavigationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.osensetech.ArrowNavigationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ArrowNavigation.app/ArrowNavigation";
+			};
+			name = Debug;
+		};
+		655E30D626808344004AC30F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SUV34UZRXX;
+				INFOPLIST_FILE = ArrowNavigationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.osensetech.ArrowNavigationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ArrowNavigation.app/ArrowNavigation";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -338,6 +458,15 @@
 			buildConfigurations = (
 				6507D66F26648AEE000EBB8D /* Debug */,
 				6507D67026648AEE000EBB8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		655E30D726808344004AC30F /* Build configuration list for PBXNativeTarget "ArrowNavigationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				655E30D526808344004AC30F /* Debug */,
+				655E30D626808344004AC30F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
