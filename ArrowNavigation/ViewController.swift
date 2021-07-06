@@ -42,8 +42,10 @@ class ViewController: UIViewController {
         sceneView.delegate = self
         sceneView.session.delegate = self
         
-        // Show statistics such as fps and timing information
+        #if DEBUG
+        sceneView.debugOptions = [.showFeaturePoints, .showCameras]
         sceneView.showsStatistics = true
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
