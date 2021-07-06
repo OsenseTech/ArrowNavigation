@@ -26,15 +26,15 @@ class ViewController: UIViewController {
     }()
     
     private lazy var targetNode: SCNNode = {
-        let box = SCNBox(width: 0.5, height: 0.5, length: 0.5, chamferRadius: 0)
+        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
         let targetNode = SCNNode()
         targetNode.geometry = box
-        
-        
         
         return targetNode
     }()
     
+    private var imageAnchorNode: SCNNode!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
